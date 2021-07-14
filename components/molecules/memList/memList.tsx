@@ -16,7 +16,7 @@ const MemList = () => {
         {loading ? (
           <View><Text>Loading....</Text></View>
         ) : (
-          <View><Text>Sory for enconvinience. Database is anavailable</Text></View>
+          <View><Text>Sory for enconvinience. Database is anavailable ! </Text></View>
         )}
       </>
     );
