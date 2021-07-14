@@ -7,19 +7,25 @@ import Favourite from "./screens/Hot/Hot";
 import Regular from "./screens/Regular/Regular";
 import { Provider } from 'react-redux';
 import store from './store/store';
+import {
+  ApolloProvider,
+} from "@apollo/client";
+import { client } from "./memCMS/apolloClient";
 
 const Stack = createStackNavigator();
 
 const App = () => (
-  <Provider store={store}>
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Hot" component={Hot} />
-        <Stack.Screen name="Regular" component={Regular} />
-        <Stack.Screen name="Favourite" component={Favourite} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  </Provider>
+  <ApolloProvider client={client}>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Hot" component={Hot} />
+          <Stack.Screen name="Regular" component={Regular} />
+          <Stack.Screen name="Favourite" component={Favourite} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
+  </ApolloProvider>
 );
 export default App;
