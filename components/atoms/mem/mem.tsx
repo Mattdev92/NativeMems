@@ -7,11 +7,13 @@ const Mem: FC<MemProps> = ({ item }) => {
   return (
     <View>
       <View style={styles.textContainer}>
-        <Text style={styles.text}>My first RN Mem</Text>
+        <Text style={styles.text}>{item.title} </Text>
       </View>
       <Image
         style={styles.image}
-        source={require(`../../../assets/2.jpg`)}
+        source={{
+          uri: item.image.url
+        }}
       ></Image>
     </View>
   );

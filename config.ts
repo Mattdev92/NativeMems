@@ -1,5 +1,5 @@
-import {API_TOKEN} from '@env';
+import {API_TOKEN2} from '@env';
 
 export default {
-    API_TOKEN
+    API_TOKEN2
 }

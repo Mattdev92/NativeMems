@@ -1,22 +1,29 @@
-import React from "react";
+import React, { FC } from "react";
 import { Text, FlatList, SafeAreaView, View } from "react-native";
 import Mem from "../../atoms/mem/mem";
-import { DATA } from "../../../helpers/helpers";
 import { useQuery } from "@apollo/client";
+import { getAllMems } from "../../../memCMS/querries";
 import { getAllArticles } from "../../../memCMS/querries";
+import { MemsDataType } from "./memList.types";
 import { ArticlesDataType } from "./memList.types";
 
-const MemList = () => {
-  const { loading, error, data } = useQuery<ArticlesDataType>(getAllArticles);
-  console.log(data);
+const MemList: FC = () => {
+  const { loading, error, data } = useQuery<MemsDataType>(getAllMems,{
+    fetchPolicy: "no-cache"
+  });
   console.log(error);
+
   if (loading || error) {
     return (
       <>
         {loading ? (
-          <View><Text>Loading....</Text></View>
+          <View>
+            <Text>Loading....</Text>
+          </View>
         ) : (
-          <View><Text>Sory for enconvinience. Database is anavailable ! </Text></View>
+          <View>
+            <Text>Sory for enconvinience. Database is anavailable ! </Text>
+          </View>
         )}
       </>
     );
@@ -24,11 +31,13 @@ const MemList = () => {
     return (
       <SafeAreaView>
         <Text>Hello It's MemList View</Text>
-        <FlatList
-          data={DATA}
-          renderItem={Mem}
-          keyExtractor={(item) => item}
-        />
+        {data && (
+          <FlatList
+            data={data.allMems}
+            renderItem={Mem}
+            keyExtractor={(item) => item.id}
+          />
+        )}
       </SafeAreaView>
     );
   }
