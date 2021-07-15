@@ -4,6 +4,6 @@ export const styles = StyleSheet.create({
     mainContainer: {
       flexDirection: "column",
       alignItems: "center",
-      justifyContent: "space-between",
+      height: '70%'
     },
   });

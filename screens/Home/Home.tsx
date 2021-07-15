@@ -16,7 +16,7 @@ const HomeScreen: FC<HomeProps> = ({ navigation }) => {
   console.log(author);
   return (
     <WithNavigation navigation={navigation}>
-      <Text style={styles.title}>Hello Matt App</Text>
+      <Text style={styles.title}>All available Mems</Text>
       <MemList />
     </WithNavigation>
   );

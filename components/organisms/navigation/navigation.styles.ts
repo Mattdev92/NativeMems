@@ -8,9 +8,10 @@ export const styles = StyleSheet.create({
     },
     button: {
       alignItems: "center",
-      backgroundColor: "black",
-      padding: 10,
-      margin: 10,
+      backgroundColor: "blue",
+      margin: 5,
+      borderRadius: 5, width: 80,
+      justifyContent: 'center'
     },
     text: {
       color: "white",
