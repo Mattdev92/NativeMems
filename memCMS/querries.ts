@@ -12,4 +12,10 @@ export const getAllMems = gql`
   }
 }
 `;
-
+export const getMemsNames = gql`
+{
+  allMems {
+    title
+  }
+}
+`;
