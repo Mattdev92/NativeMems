@@ -2,6 +2,7 @@ import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import config
  from '../config';
+ 
 const url = 'https://graphql.datocms.com/';
 const httpLink = createHttpLink({
   uri: url,

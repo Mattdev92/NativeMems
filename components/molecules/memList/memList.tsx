@@ -3,20 +3,16 @@ import { Text, FlatList, SafeAreaView, View } from "react-native";
 import Mem from "../../atoms/mem/mem";
 import { useQuery } from "@apollo/client";
 import { getAllMems } from "../../../memCMS/querries";
-import { getAllArticles } from "../../../memCMS/querries";
 import { MemsDataType } from "./memList.types";
-import { ArticlesDataType } from "./memList.types";
+import { styles } from "./memList.styles";
 
 const MemList: FC = () => {
-  const { loading, error, data } = useQuery<MemsDataType>(getAllMems,{
-    fetchPolicy: "no-cache"
-  });
-  console.log(error);
+  const { loading, error, data } = useQuery<MemsDataType>(getAllMems);
 
   if (loading || error) {
     return (
       <>
-        {loading ? (
+        {loading  ? (
           <View>
             <Text>Loading....</Text>
           </View>
@@ -29,16 +25,15 @@ const MemList: FC = () => {
     );
   } else {
     return (
-      <SafeAreaView>
-        <Text>Hello It's MemList View</Text>
+      <View style={styles.mainContainer}>
         {data && (
           <FlatList
             data={data.allMems}
-            renderItem={Mem}
+            renderItem={({item})=><Mem item={item}/>}
             keyExtractor={(item) => item.id}
           />
         )}
-      </SafeAreaView>
+      </View>
     );
   }
 };
