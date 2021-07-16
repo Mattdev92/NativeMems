@@ -21,7 +21,25 @@ const memSlice = createSlice({
   reducers: {
     memNameUploaded(state) {
         state.uploaded= true;
-  }
+  },
+    memUpvote(state,action) {
+      state.votes = {
+        ...state.votes,
+        [action.payload]: {
+          upvote: state.votes[action.payload].upvote+1,
+          downvote: state.votes[action.payload].downvote,
+        },
+      };
+  },
+    memDownvote(state,action) {
+      state.votes = {
+        ...state.votes,
+        [action.payload]: {
+          upvote: state.votes[action.payload].upvote,
+          downvote: state.votes[action.payload].downvote+1,
+        },
+      };
+  },
 },
   extraReducers: (builder) => {
     builder.addCase(fetchMemNames.fulfilled, (state, action) => {
@@ -40,6 +58,6 @@ const memSlice = createSlice({
   },
 });
 
-export const { memNameUploaded } = memSlice.actions;
+export const { memNameUploaded, memDownvote, memUpvote } = memSlice.actions;
 
 export default memSlice.reducer;

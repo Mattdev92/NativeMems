@@ -5,6 +5,8 @@ import { MemProps } from "./mem.types";
 import { FontAwesome } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
+import { memUpvote, memDownvote } from "../../../slices/createSliceMem";
+import { useDispatch } from "react-redux";
 
 const Mem: FC<MemProps> = ({ item }) => {
 
@@ -15,19 +17,14 @@ const Mem: FC<MemProps> = ({ item }) => {
   const votes: any = useSelector<RootState>(
     ({ memReducer: { votes } }) => votes
   );
-  const uploaded: any = useSelector<RootState>(
-    ({ memReducer: { uploaded } }) => uploaded
-  );
 
   useEffect(()=>{
     setVote({
-      Upvote: votes[item.title].downvote,
-      Downvote: votes[item.title].upvote
+      Upvote: votes[item.title].upvote,
+      Downvote: votes[item.title].downvote
     })
-  },[uploaded])
-  
-  // const downvote: number = votes[item.title].downvote;
-  // const upvote: number = votes[item.title].upvote;
+  },[votes])
+const dispatch = useDispatch();
 
   return (
     <View style={styles.memContainer}>
@@ -42,11 +39,11 @@ const Mem: FC<MemProps> = ({ item }) => {
       ></Image>
       <View style={styles.vote}>
         <View>
-          <FontAwesome name="thumbs-o-up" size={30} color="blue" />
+          <FontAwesome name="thumbs-o-up" size={30} color="blue" onPress={()=>dispatch(memUpvote(item.title))}/>
           <Text>{vote.Upvote}</Text>
         </View>
         <View>
-          <FontAwesome name="thumbs-o-down" size={30} color="blue" />
+          <FontAwesome name="thumbs-o-down" size={30} color="blue" onPress={()=>dispatch(memDownvote(item.title))}/>
           <Text>{vote.Downvote}</Text>
         </View>
       </View>
