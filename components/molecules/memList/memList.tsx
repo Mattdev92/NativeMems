@@ -12,7 +12,7 @@ const MemList: FC = () => {
   if (loading || error) {
     return (
       <>
-        {loading ? (
+        {loading  ? (
           <View>
             <Text>Loading....</Text>
           </View>

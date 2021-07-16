@@ -1,31 +1,45 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { InnitialStateType } from "./createSliceMemtypes";
+import { MemsNameType } from "./createSliceMemtypes";
 
 const initialState: InnitialStateType = {
   author: "Mateusz",
-  votes: [],
+  votes: {},
+  uploaded: false
 };
-export const fetchMemNames = createAsyncThunk("/datoCMS", async (data, thunkApi) => {
-  const response = await data;
-  return response;
-});
+
+export const fetchMemNames = createAsyncThunk(
+  "/datoCMS",
+  async (data: MemsNameType | undefined) => {
+    const response = await data;
+    return response;
+  }
+);
 const memSlice = createSlice({
   name: "mem",
   initialState,
   reducers: {
-    //   memNameAdded(state, action) {
-    //     state.names.push(action.payload);
-  },
+    memNameUploaded(state) {
+        state.uploaded= true;
+  }
+},
   extraReducers: (builder) => {
     builder.addCase(fetchMemNames.fulfilled, (state, action) => {
-      state.votes.push({
-        upvote: 1,
-        downvote: 1,
+      action.payload?.allMems.map((item) => {
+        state.votes = {
+          ...state.votes,
+          [item.title]: {
+            upvote: 1,
+            downvote: 1,
+          },
+        };
+        state.uploaded= true;
       });
-    });
+    } 
+    );
   },
 });
 
-// export const { memNameAdded } = memSlice.actions;
+export const { memNameUploaded } = memSlice.actions;
 
 export default memSlice.reducer;

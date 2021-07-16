@@ -1,9 +1,15 @@
-export interface VotesType{
-  upvote: number,
-  downvote: number
-}
 export interface InnitialStateType {
     author: string;
-    votes: VotesType[]
+    votes: any,
+    uploaded: boolean
   }
+
+export interface MemNameTypes {
+    title: string;
+  }
+  
+export interface MemsNameType {
+    allMems: MemNameTypes[]
+  }
+
   
