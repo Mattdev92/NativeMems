@@ -1,18 +1,21 @@
 import React, { FC } from "react";
-import { Text, FlatList, SafeAreaView, View } from "react-native";
+import { Text, FlatList, View } from "react-native";
 import Mem from "../../atoms/mem/mem";
 import { useQuery } from "@apollo/client";
 import { getAllMems } from "../../../memCMS/querries";
-import { MemsDataType } from "./memList.types";
+import { MemDataTypes, MemsDataType } from "./memList.types";
 import { styles } from "./memList.styles";
+import { MemProps } from "../../atoms/mem/mem.types";
 
 const MemList: FC = () => {
+ 
   const { loading, error, data } = useQuery<MemsDataType>(getAllMems);
 
+  const renderItem = ({ item} : MemProps) => <Mem item={item} />;
   if (loading || error) {
     return (
       <>
-        {loading  ? (
+        {loading ? (
           <View>
             <Text>Loading....</Text>
           </View>
@@ -29,8 +32,8 @@ const MemList: FC = () => {
         {data && (
           <FlatList
             data={data.allMems}
-            renderItem={({item})=><Mem item={item}/>}
-            keyExtractor={(item) => item.id}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.title}
           />
         )}
       </View>

@@ -1,7 +1,13 @@
 import { MemDataTypes } from "../../molecules/memList/memList.types";
 
 export interface MemProps {
-    item: MemDataTypes
+    item:{
+       image: {
+        alt: string;
+        url: string;
+      };
+      title: string; 
+    }
 }
 
 export interface MemVote {

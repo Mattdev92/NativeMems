@@ -1,7 +1,8 @@
 export interface InnitialStateType {
     author: string;
     votes: any,
-    uploaded: boolean
+    uploaded: boolean,
+    selectedItem: string
   }
 
 export interface MemNameTypes {
