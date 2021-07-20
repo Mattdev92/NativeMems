@@ -8,17 +8,25 @@ import { styles } from "./memList.styles";
 import { RootState } from "../../../store/store";
 import { useSelector } from "react-redux";
 import { renderItemProps } from "./memList.types";
+import { whichListDisplay } from "../../../helpers/helpers";
+import { MemListProps } from "./memList.types";
 
-const MemList: FC = () => {
-
+const MemList: FC<MemListProps> = ({ hot, regular }) => {
   const { loading, error, data } = useQuery<MemsDataType>(getAllMems);
   const votes: any = useSelector<RootState>(
     ({ memReducer: { votes } }) => votes
   );
+
   const memoData = useMemo(() => data, [data]);
 
-  const renderItem = ({ item }: renderItemProps) => <Mem item={item} upvote={votes[item.title].upvote} downvote={votes[item.title].downvote} />;
-  
+  const renderItem = ({ item }: renderItemProps) => (
+    <Mem
+      item={item}
+      upvote={whichListDisplay(votes, hot, regular)[item.title].upvote}
+      downvote={whichListDisplay(votes, hot, regular)[item.title].downvote}
+    />
+  );
+
   if (loading || error) {
     return (
       <>
@@ -38,7 +46,10 @@ const MemList: FC = () => {
       <View style={styles.mainContainer}>
         {memoData && (
           <FlatList
-            data={memoData.allMems}
+            data={memoData.allMems.filter(
+              (item) =>
+                whichListDisplay(votes, hot, regular).hasOwnProperty(item.title)
+            )}
             renderItem={renderItem}
             keyExtractor={(item) => item.title}
           />

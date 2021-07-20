@@ -6,7 +6,7 @@ const initialState: InnitialStateType = {
   author: "Mateusz",
   votes: {},
   uploaded: false,
-  selectedItem: ''
+  selectedItem: '',
 };
 
 export const fetchMemNames = createAsyncThunk(

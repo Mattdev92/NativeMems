@@ -15,4 +15,9 @@ export interface MemsDataType {
 export  interface renderItemProps {
   item: MemProps
 }
+
+export interface MemListProps{
+  hot: boolean,
+  regular: boolean
+}
   
