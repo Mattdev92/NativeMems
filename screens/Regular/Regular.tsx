@@ -1,13 +1,15 @@
-import React,{FC} from "react";
+import React, { FC } from "react";
 import { Button, Text, View } from "react-native";
+import MemList from "../../components/molecules/memList/memList";
+import WithNavigation from "../../templates/withNavigation/withNavigation";
+import { RegularScreenProps } from "./Regular.types";
 
 const RegularScreen: FC<RegularScreenProps> = ({ navigation }) => (
-  <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-    <Text>Hello from Regular Screen</Text>
+  <WithNavigation navigation={navigation}>
+    <Text>Regular MEMs</Text>
+    <MemList hot={false} regular={true}/>
     <Button title="Go back" onPress={() => navigation.goBack()} />
-  </View>
+  </WithNavigation>
 );
-interface RegularScreenProps {
-  navigation: any;
-}
+
 export default RegularScreen;
