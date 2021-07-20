@@ -5,7 +5,8 @@ import { MemsNameType } from "./createSliceMemtypes";
 const initialState: InnitialStateType = {
   author: "Mateusz",
   votes: {},
-  uploaded: false
+  uploaded: false,
+  selectedItem: ''
 };
 
 export const fetchMemNames = createAsyncThunk(
@@ -19,8 +20,8 @@ const memSlice = createSlice({
   name: "mem",
   initialState,
   reducers: {
-    memNameUploaded(state) {
-        state.uploaded= true;
+    memSelected(state, action) {
+        state.selectedItem= action.payload;
   },
     memUpvote(state,action) {
       state.votes = {
@@ -58,6 +59,6 @@ const memSlice = createSlice({
   },
 });
 
-export const { memNameUploaded, memDownvote, memUpvote } = memSlice.actions;
+export const { memSelected, memDownvote, memUpvote } = memSlice.actions;
 
 export default memSlice.reducer;

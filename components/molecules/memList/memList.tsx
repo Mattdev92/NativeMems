@@ -1,18 +1,28 @@
-import React, { FC } from "react";
-import { Text, FlatList, SafeAreaView, View } from "react-native";
+import React, { FC, useMemo } from "react";
+import { Text, FlatList, View } from "react-native";
 import Mem from "../../atoms/mem/mem";
 import { useQuery } from "@apollo/client";
 import { getAllMems } from "../../../memCMS/querries";
 import { MemsDataType } from "./memList.types";
 import { styles } from "./memList.styles";
+import { RootState } from "../../../store/store";
+import { useSelector } from "react-redux";
+import { renderItemProps } from "./memList.types";
 
 const MemList: FC = () => {
-  const { loading, error, data } = useQuery<MemsDataType>(getAllMems);
 
+  const { loading, error, data } = useQuery<MemsDataType>(getAllMems);
+  const votes: any = useSelector<RootState>(
+    ({ memReducer: { votes } }) => votes
+  );
+  const memoData = useMemo(() => data, [data]);
+
+  const renderItem = ({ item }: renderItemProps) => <Mem item={item} upvote={votes[item.title].upvote} downvote={votes[item.title].downvote} />;
+  
   if (loading || error) {
     return (
       <>
-        {loading  ? (
+        {loading ? (
           <View>
             <Text>Loading....</Text>
           </View>
@@ -26,15 +36,16 @@ const MemList: FC = () => {
   } else {
     return (
       <View style={styles.mainContainer}>
-        {data && (
+        {memoData && (
           <FlatList
-            data={data.allMems}
-            renderItem={({item})=><Mem item={item}/>}
-            keyExtractor={(item) => item.id}
+            data={memoData.allMems}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.title}
           />
         )}
       </View>
     );
   }
 };
+
 export default MemList;
