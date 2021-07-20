@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useMemo, useRef } from "react";
+import React, { FC } from "react";
 import { View, Text, Image } from "react-native";
 import { styles } from "./mem.styles";
 import { AllMemProps } from "./mem.types";
@@ -11,10 +11,9 @@ import {
 import { useDispatch } from "react-redux";
 
 const Mem: FC<AllMemProps> = ({ item: { image, title }, upvote, downvote }) => {
-  console.log(title);
 
   const dispatch = useDispatch();
-  const renders = useRef(0);
+
   return (
     <View style={styles.memContainer}>
       <View style={styles.textContainer}>
@@ -50,7 +49,6 @@ const Mem: FC<AllMemProps> = ({ item: { image, title }, upvote, downvote }) => {
             }}
           />
           <Text>{downvote}</Text>
-          <Text>Renders {renders.current++}</Text>
         </View>
       </View>
     </View>

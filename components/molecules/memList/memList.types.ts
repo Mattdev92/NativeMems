@@ -1,3 +1,5 @@
+import { MemProps } from "../../atoms/mem/mem.types";
+
 export interface MemDataTypes {
     image: {
       alt: string;
@@ -10,4 +12,7 @@ export interface MemsDataType {
     allMems: MemDataTypes[];
   }
 
+export  interface renderItemProps {
+  item: MemProps
+}
   

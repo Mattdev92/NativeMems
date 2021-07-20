@@ -5,13 +5,12 @@ import { useQuery } from "@apollo/client";
 import { getAllMems } from "../../../memCMS/querries";
 import { MemsDataType } from "./memList.types";
 import { styles } from "./memList.styles";
-import { MemProps } from "../../atoms/mem/mem.types";
 import { RootState } from "../../../store/store";
 import { useSelector } from "react-redux";
-interface renderItemProps {
-  item: MemProps
-}
+import { renderItemProps } from "./memList.types";
+
 const MemList: FC = () => {
+
   const { loading, error, data } = useQuery<MemsDataType>(getAllMems);
   const votes: any = useSelector<RootState>(
     ({ memReducer: { votes } }) => votes
@@ -19,6 +18,7 @@ const MemList: FC = () => {
   const memoData = useMemo(() => data, [data]);
 
   const renderItem = ({ item }: renderItemProps) => <Mem item={item} upvote={votes[item.title].upvote} downvote={votes[item.title].downvote} />;
+  
   if (loading || error) {
     return (
       <>
@@ -47,4 +47,5 @@ const MemList: FC = () => {
     );
   }
 };
+
 export default MemList;
