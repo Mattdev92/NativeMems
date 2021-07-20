@@ -14,7 +14,7 @@ Project was created on Expo configuration.
 Debugging: Android studio phones emulators/expo app on phisical phone and React Native Debuger set on port 19000
 
 ## How it works
-![](nativeMem.gif)
+![](memeNative.gif)
 
 ## Getting Started
 1. "git clone" 
