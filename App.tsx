@@ -22,7 +22,6 @@ const App = () => (
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Hot" component={Hot} />
           <Stack.Screen name="Regular" component={Regular} />
-          <Stack.Screen name="Favourite" component={Favourite} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

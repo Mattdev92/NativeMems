@@ -36,7 +36,7 @@ const HomeScreen: FC<HomeProps> = ({ navigation }) => {
   return (
     <WithNavigation navigation={navigation}>
       <Text style={styles.title}>All available Mems</Text>
-      <MemList />
+      <MemList hot={false} regular={false} />
     </WithNavigation>
   );
 };
