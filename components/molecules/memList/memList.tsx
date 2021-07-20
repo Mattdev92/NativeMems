@@ -10,20 +10,21 @@ import { useSelector } from "react-redux";
 import { renderItemProps } from "./memList.types";
 import { whichListDisplay } from "../../../helpers/helpers";
 import { MemListProps } from "./memList.types";
+import { filteredCmsData } from "../../../helpers/helpers";
 
 const MemList: FC<MemListProps> = ({ hot, regular }) => {
+
   const { loading, error, data } = useQuery<MemsDataType>(getAllMems);
   const votes: any = useSelector<RootState>(
     ({ memReducer: { votes } }) => votes
   );
-
   const memoData = useMemo(() => data, [data]);
 
   const renderItem = ({ item }: renderItemProps) => (
     <Mem
       item={item}
-      upvote={whichListDisplay(votes, hot, regular)[item.title].upvote}
-      downvote={whichListDisplay(votes, hot, regular)[item.title].downvote}
+      upvote={votes[item.title].upvote}
+      downvote={votes[item.title].downvote}
     />
   );
 
@@ -46,10 +47,7 @@ const MemList: FC<MemListProps> = ({ hot, regular }) => {
       <View style={styles.mainContainer}>
         {memoData && (
           <FlatList
-            data={memoData.allMems.filter(
-              (item) =>
-                whichListDisplay(votes, hot, regular).hasOwnProperty(item.title)
-            )}
+            data={filteredCmsData(memoData, votes, hot ,regular)}
             renderItem={renderItem}
             keyExtractor={(item) => item.title}
           />
